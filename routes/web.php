@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/login','User\LoginController@webLogin');      // web网站登录
+Route::post('/login','User\LoginController@webLoginDo');   // web网站登录
