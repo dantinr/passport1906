@@ -9,7 +9,7 @@
 </head>
 <body>
     <form action="/login" method="post">
-        {{ csrf_field() }}
+
         用户名： <input type="text" name="name"><br>
         密码： <input type="password" name="pass"><br>
         <input type="submit" value="登录">
