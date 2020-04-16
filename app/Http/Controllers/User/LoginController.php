@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redis;
+use App\Model\UserModel;
 
 class LoginController extends Controller
 {
@@ -21,16 +22,27 @@ class LoginController extends Controller
     /**
      * 处理WEB登录
      */
-    public function webLoginDo()
+    public function webLoginDo(Request $request)
     {
-        // TODO 登录逻辑
-
         //验证用户名密码
+        $name = $request->input('name');
+        $pass = $request->input('pass');
+
+        $u = UserModel::where(['user_name'=>$name])->first();
+        if($u){
+            //验证密码是否正确
+            var_dump($u);
+        }else{
+            // 用户不存在
+            die("用户不存在");
+        }
 
         $uid = 1234;
 
         // 生成token , 写入 cookie中
         $token = Str::random(16);
+
+
 
         //设置cookie
         setcookie('token',$token,time() + 3600,'/','.1906.com',NULL,true);
@@ -55,7 +67,7 @@ class LoginController extends Controller
         $user = $request->input('user');
         $pass = $request->input('pass');
 
-        
+
 
         //echo "我是passport<hr>";
         //echo "u: ".$user;echo '<br>';
